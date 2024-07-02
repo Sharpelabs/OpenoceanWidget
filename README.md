@@ -1,4 +1,4 @@
-# open-ocean
+# OpenOcean
 
 ## Project setup
 ```
