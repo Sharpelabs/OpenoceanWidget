@@ -27,11 +27,10 @@
         </div>
         <Info label="You Save" :value="youSaveUsd" help="You Save" color="green" v-if="youSave != '--'" />
       </div>
-      <Banner v-if="!isEmbed" />
-      <div class="copyright">
+      <!-- <Banner v-if="!isEmbed" /> -->
+      <!-- <div class="copyright">
         <span style="color:var(--text_secondary);opacity: 0.6;">Powered by</span>
         <a href="https://app.openocean.finance" target="_blank">
-          <!-- <svg viewBox="0 0 121 24" version="1.1"> -->
           <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g clip-path="url(#clip0_52_581)">
               <g opacity="0.9">
@@ -47,7 +46,7 @@
           </svg>
         </a>
         <span style="color:var(--text_secondary);opacity: 0.6;">OpenOcean</span>
-      </div>
+      </div> -->
       <!-- <div v-else class="copyright">
         <img class="logo" :src="logoUrl" alt="">
       </div> -->

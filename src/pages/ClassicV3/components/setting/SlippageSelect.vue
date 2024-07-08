@@ -118,7 +118,7 @@ export default {
       line-height: 44px;
       &.active {
         background: var(--background_interactive);
-        color: var(--button_text_interactive);
+        color: var(--text_primary);
         // color: var(--background_fold-active);
         cursor: default;
       }

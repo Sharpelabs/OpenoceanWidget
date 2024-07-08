@@ -188,7 +188,7 @@ export default {
   height: 48px;
   padding: 0px 24px;
   margin-bottom: 16px;
-  border: 1px solid transparent;
+  border: 1px solid 212121;
 
   &:hover {
     border-color: var(--button_text_interactive);
@@ -254,19 +254,21 @@ export default {
         border-radius: 8px;
         border: 1px solid transparent;
         box-sizing: border-box;
+        border: 1px solid #212121;
 
         .item__icon {
           margin-left: 16px;
         }
 
         &:hover {
-          border-color: var(--button_text_interactive);
+          border-color: var(--button_background_uninteractive);
         }
       }
 
       .active {
+        border-color: var(--button_background_uninteractive);
         &:hover {
-          border-color: var(--button_text_interactive);
+          border-color: var(--button_background_uninteractive);
         }
       }
     }

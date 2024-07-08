@@ -232,10 +232,10 @@ export default {
   height: 48px;
   padding: 0px 24px;
   margin-bottom: 16px;
-  border: 1px solid transparent;
+  border: 1px solid #212121;
 
   &:hover {
-    border-color: var(--button_text_interactive);
+    border-color: var(--button_background_uninteractive);
   }
 }
 
@@ -300,6 +300,7 @@ export default {
         background-color: var(--background_classic-token);
         border-radius: 8px;
         align-items: center;
+        border: 1px solid #212121;
 
         .item__icon {
           margin-left: 16px;
@@ -315,10 +316,10 @@ export default {
       }
 
       .active {
-        border: 1px solid transparent;
+        border: 1px solid  #b5d7de;
 
         &:hover {
-          border-color: var(--button_text_interactive);
+          border-color: var(--button_background_uninteractive);
         }
       }
     }

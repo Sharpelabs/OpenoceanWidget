@@ -28,20 +28,21 @@
   --button_chain_add: #AFA4AF; 
   --button_chain_add_bg: #F7F6FA; 
   .g-dark {
-    --background_base: #17122B; 
-    --background_container: #222037; 
-    --background_interactive: #17122b; 
-    --background_uninteractive: #29273D; 
+    --background_base: #09090B; 
+    --background_container: #101013; 
+    --background_interactive: #09090B; 
+    --background_uninteractive: #09090B; 
     --text_primary: #fff; 
-    --text_secondary: #8C7F8C; 
-    --button_background_interactive: #fb534f; 
-    --button_text_interactive: #fff; 
-    --button_background_uninteractive: #333147;
-    --button_text_uninteractive: #b1a7b1; 
+    --text_secondary: #989898; 
+    --button_background_interactive: #98ECFF; 
+    --button_text_interactive: #000; 
+    --button_background_uninteractive: #679aa5;
+    --button_text_uninteractive: #000; 
+    --background_classic-btn: rgba(255, 255, 255, .05);
     --success: #479a4b; 
-    --fail: #F6475D;
-    --button_back: #857685;
-    --button_back_bg: #333147; 
+    --fail: #98ECFF;
+    --button_back: #fff;
+    --button_back_bg: rgba(255, 255, 255, .05); 
     --button_chain_add: #FFFFFF;
     --button_chain_add_bg: #29273D;
   }
