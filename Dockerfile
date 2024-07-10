@@ -6,6 +6,7 @@ WORKDIR /app
 
 # Install git
 RUN apk add --no-cache git
+RUN npm install -g @vue/cli-service
 
 # Copy the package.json and package-lock.json files to the working directory
 COPY package*.json ./
