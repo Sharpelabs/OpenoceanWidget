@@ -20,7 +20,7 @@ RUN npm install -g serve
 COPY . .
 
 # Build the application
-RUN npm run build
+RUN npm run build:prod
 
 # Expose port 8080 for the application
 EXPOSE 8080
