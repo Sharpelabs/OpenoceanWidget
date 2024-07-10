@@ -4,6 +4,9 @@ FROM node:20-alpine
 # Set the working directory in the Docker container
 WORKDIR /app
 
+# Install git
+RUN apk add --no-cache git
+
 # Copy the package.json and package-lock.json files to the working directory
 COPY package*.json ./
 
