@@ -22,7 +22,7 @@ module.exports = {
 				{ test: /node_modules[\\/]superstruct/, loader: 'babel-loader' },
 				{ test: /node_modules[\\/]@walletconnect/, loader: 'babel-loader' },
 				{ test: /node_modules[\\/]rpc-websockets/, loader: 'babel-loader' },
-
+				{ test: /node_modules[\\/]libsodium/, loader: 'babel-loader' }
 			]
 		}
 	},
