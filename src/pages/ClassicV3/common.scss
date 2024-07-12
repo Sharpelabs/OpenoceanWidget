@@ -5,7 +5,8 @@
   display: flex;
   overflow-x: hidden;
   justify-content: center;
-
+  min-height: 100vh !important;
+  align-items: center !important;
   @media (max-width: 1280px) {
     justify-content: center;
   }
