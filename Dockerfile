@@ -27,5 +27,5 @@ RUN npm run build:prod
 EXPOSE 8080
 
 # Run serve when the container launches
-# Serve the build directory on port 8080
-CMD ["serve", "-s", "build", "-l", "8080"]
+# Serve the dist directory on port 8080
+CMD ["serve", "-s", "dist", "-l", "8080"]
