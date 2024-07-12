@@ -8,7 +8,7 @@ Vue.use(VueRouter);
 
 let routes = [
   {
-    path: "/",
+    path: "/basic",
     name: "Classic",
     component: Classic,
     meta: {
@@ -22,7 +22,7 @@ let routes = [
   },
   {
     path: "*",
-    redirect: "/",
+    redirect: "/basic",
   },
 ];
 

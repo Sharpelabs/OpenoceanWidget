@@ -63,7 +63,7 @@ export default {
       display: flex;
       align-items: center;
       justify-content: flex-start;
-      border: 1px solid transparent;
+      border: 1px solid 212121;
 
       padding: 0 10px;
       transition: all 0.3s ease;
