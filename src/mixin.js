@@ -1,6 +1,5 @@
 import { getters, contract as state } from "./contract";
-import { isSideChain, getNativeToken } from "./utils/getChains";
-import { getHashParams } from "@/utils/helpers";
+import { isSideChain, getNativeToken, getExchange } from "./utils/getChains";
 import { changeRoute } from '@/init'
 export default {
   computed: {
@@ -159,12 +158,11 @@ export default {
         });
     },
     async getExchange () {
-      if (this.chainName === "onto" || this.chainName === "solana") {
-        // this.getBalanceOf();
+      if (["onto", "solana", "starknet", "aptos", "near", "ont"].indexOf(this.chainName) >= 0) {
+        this.getBalanceOf();
         return;
       }
-      let data = await this.$axios.get(this.walletPath + "exchange", { cache: true })
-      state.approveContract = data.approveContract;
+      state.approveContract = getExchange(this.chainName).approveContract;
     },
   },
 };

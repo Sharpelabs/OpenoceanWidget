@@ -166,6 +166,13 @@
             <div class="list">
               <div class="textarea">{{ showUrl }}</div>
             </div>
+
+            <div class="title">
+              <h3>Reset By Url</h3>
+            </div>
+            <div class="list list1">
+              <textarea @change="changeReset" rows="5" cols="5" v-model="showUrlReset"/>
+            </div>
           </div>
         </div>
       </div>
@@ -216,6 +223,7 @@ export default {
   data () {
     const list = getChains();
     return {
+      showUrlReset: '',
       chainList: list.filter((item) => item.disabled !== true),
       loadUrl: "",
       showUrl: "",
@@ -337,6 +345,12 @@ export default {
 
 
     },
+    changeReset(){
+      let data = this.showUrlReset.split('?p=')
+      if(data.length==2){
+        this.setTheme(data[1]);
+      }
+    },
     showColor (key) {
       this.showColorKey = key;
     },
@@ -373,7 +387,7 @@ export default {
     },
 
     showTokenMore (type) {
-      if(this.moreList.length>=3) {
+      if (this.moreList.length >= 3) {
         showToast(
           {
             text: "Customize middle token (<=3).",
@@ -386,7 +400,7 @@ export default {
       this.isShowTokenMore = true;
     },
     selectTokenMore (item) {
-      if(this.moreList.length>=3) {
+      if (this.moreList.length >= 3) {
         this.isShowTokenMore = false;
         showToast("Customize middle token (<=3).");
         return
@@ -633,13 +647,14 @@ body {
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.5);
 }
 
-.theme_box{
+.theme_box {
   height: 100vh;
   overflow-y: auto;
 }
+
 .theme {
   min-height: 100vh;
-  padding: 10vh 10vw;
+  padding: 20px;
   box-sizing: border-box;
   font-family: Roboto;
 
@@ -819,7 +834,7 @@ body {
       }
 
 
-      
+
 
       .theme-button-group {
         display: grid;
@@ -850,8 +865,12 @@ body {
         }
       }
     }
-    .select1_box{
-      .lable{width:90px}
+
+    .select1_box {
+      .lable {
+        width: 90px
+      }
+
       .select1 {
         width: 90%;
 
@@ -883,7 +902,8 @@ body {
             color: #ff3e67;
             cursor: pointer;
             opacity: 0.6;
-            &:hover{
+
+            &:hover {
               opacity: 1;
             }
           }
@@ -899,21 +919,43 @@ body {
         word-wrap: break-word !important;
         white-space: pre-wrap !important;
         background: #17122b;
-        padding: 15px 0;
         margin-top: 15px;
         border-radius: 10px;
         box-sizing: border-box;
+        padding: 15px 0;
+
+
+        textarea {
+          background: none;
+          height: 60px;
+          width: 100%;
+          border-radius: 8px;
+          border: none;
+          color: #fff;
+          padding: 0 15px;
+          box-sizing: border-box;
+
+          &:hover,
+          &:focus {
+            border-color: var(--background_classic-input-hover);
+          }
+        }
+
+        .textarea {
+          height: 40px;
+          padding: 0 15px;
+          overflow: auto;
+          color: #fff;
+          line-height: 1.6;
+          box-sizing: border-box;
+        }
+      }
+      .list1 {
+        padding: 15px 0;
       }
     }
 
-    .textarea {
-      height: 100px;
-      padding: 0 15px;
-      overflow: auto;
-      color: #fff;
-      line-height: 1.6;
-      box-sizing: border-box;
-    }
+    
   }
 
   &__priview {

@@ -93,7 +93,6 @@ export default {
   computed: {
     fromToken: () => state.fromToken,
     checkApprove () {
-      console.log('checkApprove', state.fromToken.approve, this.inAmount, new BigNumber(state.fromToken.approve).comparedTo(this.inAmount))
 
       if (this.skipApprove) return false;
       this.infiniteLimitLoading = false;
@@ -103,6 +102,8 @@ export default {
         return false
       }
       const { amountAll } = this.getAmount();
+      console.log('checkApprove', state.fromToken.approve, amountAll, new BigNumber(this.fromToken.approve).comparedTo(amountAll) < 0)
+
       return (
         this.inAmount > 0 &&
         this.outAmount > 0 &&
