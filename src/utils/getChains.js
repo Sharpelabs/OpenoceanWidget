@@ -45,7 +45,7 @@ const getChains = () => {
       name: "Ethereum Mainnet",
       label: "Ethereum",
       value: "eth",
-      walletValue: "eth", // ConnectWallet 定义的Chain
+      walletValue: "eth",
       chainId: 1,
       type: "02",
       hot: true,
@@ -4853,3 +4853,48 @@ export const getChainByKey = (key) => {
 }
 
 export default getChains;
+
+
+export const getBalancesAddress = (key) => {
+
+  let json = {
+    "boba": "0xed8F54daA8Da64Ce82F23263B208417cB2729433",
+    "moonriver": "0xf61bc90581c7da1cb1e510b29ec4f96cf5b699f8",
+    "optimism": "0xcA11bde05977b3631167028862bE2a173976CA11",
+    "aurora": "0xBF69a56D35B8d6f5A8e0e96B245a72F735751e54",
+    "harmony": "0x34b415f4d3b332515e66f70595ace1dcf36254c5",
+    "cronos": "0x8924755a7FB45bF0A37A6A773795CFa878114A26",
+    "moonriver": "0xcA11bde05977b3631167028862bE2a173976CA11",
+    "ontevm": "0x9f92b2706c643ae6fdf2e9ca472f0e48497385f1",
+    "metis": "0x999c891262ce01f1C1AFD1D46260E4c1E508B243",
+    "kava": "0x7ED7bBd8C454a1B0D9EdD939c45a81A03c20131C",
+    "celo": "0x75F59534dd892c1f8a7B172D639FA854D529ada3",
+    "klaytn": "0xd11dfc2ab34abd3e1abfba80b99aefbd6255c4b8",
+    "zksync": "0x1cBFd1688e19dE659247bb95f2ef161Df72C7565",
+    "polygon_zkevm": "0x2B5F704aB7061FB4DBfc5876B024F4BDB2f5E8b6",
+    // "linea":"0x9F92b2706c643ae6FDF2e9ca472f0E48497385f1",
+    "linea": "0xE4B2D37DaBA87e865e811b240e07522414386de3",
+    "telos": "0xcA11bde05977b3631167028862bE2a173976CA11",
+    "scroll": "0x7740C579c844A21A4dF8E18c39a1c6eEBf7e9051",
+    "base": "0xcA11bde05977b3631167028862bE2a173976CA11",
+    "opbnb": "0x689e9631d1e308845DE5661C0B6bdE23c841e459",
+    "mantle": "0xEecf65578bF2f5a506e501c5809688632C1540E5",
+    "manta": "0x891CbfED9c791b8e8A53084aC39b213aF6109C70",
+    "blast": "0xD9b3b246ac3B6e44641443fec1e3749df72050b8",
+    "mode": "0x0D7A7dEf69281768599FAe0FE746EA9554b2b3D4",
+    "pulse": "0xf0B8E4CBf9c6a3F010eA5bdC3AcB796c33d0BA12",
+    "merlin": "0x830E7E548F4D80947a40A7Cf3a2a53166a0C3980",
+    "rootstock": "0x996a9858cdfa45ad68e47c9a30a7201e29c6a386",
+    "polygon": "0xc4f1501f337079077842343Ce02665D8960150B0",
+    "gnosis": "0xcA11bde05977b3631167028862bE2a173976CA11",
+    "x1": "0x55BeE1bD3Eb9986f6d2d963278de09eE92a3eF1D",
+    "sei": "0xcA11bde05977b3631167028862bE2a173976CA11",
+  }
+  if (json[key]) {
+    return {
+      id: getChainId(key),
+      address: json[key]
+    }
+  }
+  return
+}

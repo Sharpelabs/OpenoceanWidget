@@ -111,6 +111,7 @@ export default {
   watch: {
     $route: {
       handler: function (val, oldVal) {
+
         let query = val.query
         if (!oldVal || query.p || (oldVal.path == '/' && !oldVal.name)) {
           let query1 = this.setTheme(query.p);
@@ -143,6 +144,7 @@ export default {
           this.getGasPrice();
         }
         this.getExchange();
+
       },
       deep: true,
       // immediate: true,

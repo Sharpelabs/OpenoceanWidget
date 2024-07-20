@@ -14,13 +14,6 @@ import "@/utils/resize";
 import { initTheme } from "@/utils/theme";
 import i18n from "@/utils/lang";
 
-
-// import VConsole from 'vconsole'
-// const vConsole = new VConsole()
-// Vue.use(vConsole)
-// console.info("vconsole测试")
-
-
 Vue.prototype.$axios = axios;
 
 Vue.prototype.$eventGlobal = new Vue();
