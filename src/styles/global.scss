@@ -480,6 +480,9 @@ button {
 
 .Farms,
 .classic-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   .header {
     .content {
       width: 100% !important;
