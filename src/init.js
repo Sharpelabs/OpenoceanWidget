@@ -9,15 +9,13 @@ import showToast from "@/components/toast";
 import showNotification from "@/components/notification";
 import { decimals2Amount } from "@/utils/number";
 import { debounce, confirmLater } from "./utils/helpers";
-import { ethers } from "ethers";
-import getChains, { getChainId, addEthereumChainParams, isNativeToken } from "@/utils/getChains";
-
-import { formatDate, toFixed } from "@/utils/format";
+import getChains, { getChainId, addEthereumChainParams, isNativeToken, getBalancesAddress} from "@/utils/getChains";
 import { isApp, isMobile } from "./utils/helpers";
 import { CACHE_KEY, setCache } from "./utils/cache";
 import { OpenoceanSdk } from "@openocean.finance/openocean-sdk";
 import { amount2Decimals } from "./utils/number";
 import router from "./router";
+import { ethers, providers } from "ethers";
 
 export let blackList = [];
 export let myWallet = null;
@@ -114,16 +112,18 @@ export async function initTryConnect (chainName, walletName) {
   }
 };
 
-export async function getBalances (tokenList) {
-  let params = addEthereumChainParams[state.chainName];
-  if (state.chainName === "eth") {
+
+export const getProviderByRPC = (chainKey) => {
+  let chain = chainKey || state.chainName;
+  let params = addEthereumChainParams[chain];
+  if (chain === "eth") {
     params = [
       {
         chainId: `0x1`, // 1
         chainName: "Ethereum Mainnet",
         nativeCurrency: {
           name: "Ether",
-          symbol: "eth",
+          symbol: "ETH",
           decimals: 18,
         },
         rpcUrls: ["https://rpc.ankr.com/eth"],
@@ -131,44 +131,54 @@ export async function getBalances (tokenList) {
       },
     ];
   }
-  if (!params) return;
+  if (!params) return {};
 
-  const { rpcUrls, chainId } = params[0];
+  const { rpcUrls } = params[0];
   const provider = new ethers.providers.JsonRpcProvider(rpcUrls[0]);
-  // if (chainId === "0x505") {
-  //   Muliticall.setMulticallAddress(1285, "0xf61bc90581c7da1cb1e510b29ec4f96cf5b699f8")
-  // }
-  if (chainId === "0x120") {
+  return {
+    provider,
+    ...params[0],
+  };
+};
+
+export const getBalances = async (tokenList, params) => {
+  const chain = params && params.chain || state.chainName
+  if (chain === "starknet") {
+    return await getBalancesFromStarknet(tokenList, params);
+  }
+  const { provider, chainId } = getProviderByRPC(chain);
+  if (!provider || !chainId) return;
+  const account = params && params.account || state.default_account;
+  if (!account) return
+
+  let approveContract = params && params.approveContract || ''
+
+  let balancesAddress = getBalancesAddress(chain)
+  if (balancesAddress) {
     Muliticall.setMulticallAddress(
-      288,
-      "0xed8F54daA8Da64Ce82F23263B208417cB2729433"
+      balancesAddress.id,
+      balancesAddress.address
     );
   }
-  // optimism
-  if (chainId === "0xa") {
-    Muliticall.setMulticallAddress(
-      10,
-      "0xcA11bde05977b3631167028862bE2a173976CA11"
-    );
-  }
-  // aurora
-  if (chainId === "0x4e454152") {
-    Muliticall.setMulticallAddress(
-      1313161554,
-      "0xBF69a56D35B8d6f5A8e0e96B245a72F735751e54"
-    );
-  }
+
   const ethcallProvider = new Muliticall.Provider(provider, chainId);
   await ethcallProvider.init();
   const multicall = [];
-  const account = state.default_account;
+  const multicallAllowance = [];
+  console.log('getBalances_' + chain, account);
   for (let i = 0; i < tokenList.length; i++) {
     const token = tokenList[i];
-    if (isNativeToken(state.chainName, token.address)) {
+    if (isNativeToken(chain, token.address)) {
       multicall.push(ethcallProvider.getEthBalance(account));
+      if (approveContract) {
+        token.approve = -1;
+      }
     } else {
       const contract = new Muliticall.Contract(token.address, ERC20_abi);
       multicall.push(contract.balanceOf(account));
+      if (approveContract) {
+        multicallAllowance.push(contract.allowance(account, approveContract));
+      }
     }
   }
   const result = await ethcallProvider.all(multicall);
@@ -176,10 +186,28 @@ export async function getBalances (tokenList) {
     const { decimals } = tokenList[i];
     const amount = web3.utils.hexToNumberString(item);
     const balance = +amount === 0 ? 0 : decimals2Amount(amount, decimals);
-    tokenList[i].balance = +toFixed(balance, 4, 4);
+    tokenList[i].balance = Math.floor(balance * 10000) / 10000;
+    tokenList[i].balanceAll = tokenList[i].balance;
+    tokenList[i].balanceDecimals = amount;
   });
-};
+  if (approveContract) {
+    const resultAllowance = await ethcallProvider.all(multicallAllowance);
+    console.log("resultAllowance", resultAllowance);
+    resultAllowance.map((item, i) => {
+      const { approve, decimals } = tokenList[i];
+      if (approve === -1) return item;
 
+      const amount = web3.utils.hexToNumberString(item);
+      const _approve = +amount === 0 ? 0 : decimals2Amount(amount, decimals);
+      tokenList[i].approve = _approve;
+      console.log("resultAllowance", tokenList[i], _approve);
+    });
+  }
+
+
+  console.log('result_' + chainId, tokenList);
+  return tokenList
+};
 export function getSolanaTokenBalance (balance) {
   let sum = 0;
   const { value = [] } = balance || {};
