@@ -3434,7 +3434,7 @@ export const getReferrer = (walletName) => {
     referrer = "0x40603469c577b1db3d401155901a276f604436f4";
   } else {
     // PC
-    referrer = "0x3487ef9f9b36547e43268b8f0e2349a226c70b53";
+    referrer = "0x10Cc9D85441f27a500776357758961031218E3aE";
   }
   return referrer;
 };
