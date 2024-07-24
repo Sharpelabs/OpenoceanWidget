@@ -578,7 +578,7 @@ export default {
         slippage: this.tolerance * 100,
         account: this.default_account,
         referralName: 'openOcean',
-        referrer: this.$route.query.referrer || "0x3487ef9f9b36547e43268b8f0e2349a226c70b53",
+        referrer: this.$route.query.referrer || "0x10Cc9D85441f27a500776357758961031218E3aE",
         referrerFee: this.$route.query.referrer ? 100 : 0,
         referrerFeeShare: this.$route.query.referrer ? 1500 : 0,
         connectors: localStorage.getItem("connectors") || ''
